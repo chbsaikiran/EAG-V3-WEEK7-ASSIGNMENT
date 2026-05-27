@@ -292,7 +292,7 @@ def _llm_classify(raw_text: str, schema: dict) -> dict:
             "  attribute, include {\"raw\": <the original content>}."
         ),
         auto_route="memory",
-        provider="g",
+        provider="github",
         response_format={
             "type": "json_schema",
             "schema": schema,
