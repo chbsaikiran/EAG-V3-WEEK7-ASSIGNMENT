@@ -68,7 +68,17 @@ SYSTEM = (
     "  corpus was indexed in the first place; re-fetching is wasted work.\n"
     "  The chunk text for each indexed hit is shown inline under the hit's\n"
     "  descriptor (`chunk: ...`); synthesise directly from those previews\n"
-    "  rather than re-issuing the same vector query."
+    "  rather than re-issuing the same vector query.\n"
+    "RETRIEVAL PRIORITY — strictly enforce this order:\n"
+    "  1. When the goal contains 'query the knowledge base', 'search knowledge',\n"
+    "     or 'existing knowledge base': call `search_knowledge`. NEVER call\n"
+    "     `web_search` for this goal, even if you think the answer may not be\n"
+    "     in the index. Let the result prove that — do not pre-empt it.\n"
+    "  2. When the goal contains 'search the web', 'web search', or 'current\n"
+    "     information from the web': call `web_search`. This goal only appears\n"
+    "     after the knowledge base has already been tried and returned nothing.\n"
+    "  3. Never call `web_search` as a first step for a factual question.\n"
+    "     `search_knowledge` is always the first retrieval tool."
 )
 
 # How much attached content to send to the model per turn. Most LARGE-tier
